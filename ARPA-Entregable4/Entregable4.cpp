@@ -28,9 +28,9 @@ static void generateMatrix(float** matrix, int rows, int cols) {
 static void printLine(int tamMatrix) {
     printf("+");
     for (int j = 0; j < tamMatrix + 1; ++j) {
-        printf("-----");
+        printf("-------");
     }
-    printf("----+\n");
+    printf("-----+\n");
 }
 
 /*
@@ -42,10 +42,9 @@ static void printLine(int tamMatrix) {
 	@param limit: límite de impresión
 */
 static void printMatrix(float** matrix, int rows, int cols, int limit = 0) {
-
-	if (limit == 0) {
-		limit = rows;
-	}
+    if (limit == 0) {
+        limit = rows;
+    }
 
     // Imprimir la línea superior
     printLine(limit);
@@ -56,9 +55,40 @@ static void printMatrix(float** matrix, int rows, int cols, int limit = 0) {
         for (int j = 0; j < cols && j < limit; ++j) {
             printf(" %.2f |", matrix[i][j]);
         }
+        if (cols > limit) {
+            printf(" ... | %.2f |", matrix[i][cols - 1]);
+        }
         printf("\n");
 
         // Imprimir las líneas intermedias e inferior de la fila
+        printLine(limit);
+    }
+
+    if (rows > limit) {
+        // Imprimir puntos suspensivos para las filas intermedias
+        printf("|");
+        for (int j = 0; j < limit; ++j) {
+            printf(" ...  |");
+        }
+        if (cols > limit) {
+            printf(" ... | ...  |");
+        }
+        printf("\n");
+
+        // Imprimir la línea intermedia
+        printLine(limit);
+
+        // Imprimir la última fila
+        printf("|");
+        for (int j = 0; j < limit; ++j) {
+            printf(" %.2f |", matrix[rows - 1][j]);
+        }
+        if (cols > limit) {
+            printf(" ... | %.2f |", matrix[rows - 1][cols - 1]);
+        }
+        printf("\n");
+
+        // Imprimir la línea inferior
         printLine(limit);
     }
 }
